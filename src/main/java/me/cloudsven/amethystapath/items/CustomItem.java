@@ -47,8 +47,9 @@ public enum CustomItem {
                     TextUtil.text("Wanna do some taxonomy?"),
                     TextUtil.text("• Guarantees a head on kill", NamedTextColor.DARK_PURPLE)
             ),
+            null,
             16,
-            0.8
+            0.4
     ),
 
     AMIRITE_SHIELD(
@@ -60,7 +61,8 @@ public enum CustomItem {
                     TextUtil.text("Captain America?"),
                     TextUtil.text("• Reduces damage taken by 60%", NamedTextColor.DARK_PURPLE),
                     TextUtil.text("• Reflects 25% of damage", NamedTextColor.DARK_PURPLE)
-            )
+            ),
+            10
     ),
 
     SHARDED_TNT(
@@ -99,6 +101,7 @@ public enum CustomItem {
                     TextUtil.text("• 10% Lifesteal", NamedTextColor.DARK_RED),
                     TextUtil.text("• Deals Wither II for 3 seconds", NamedTextColor.DARK_RED)
             ),
+            null,
             10,
             1.6
     ),
@@ -112,7 +115,8 @@ public enum CustomItem {
                     TextUtil.text("Smash everyone and everything!"),
                     TextUtil.text("• Ruptures target's armor", NamedTextColor.DARK_RED),
                     TextUtil.text("• Deals Wither II for 3 seconds", NamedTextColor.DARK_RED)
-            )
+            ),
+            20
     ),
 
     SCARLET_PICKAXE(
@@ -123,7 +127,8 @@ public enum CustomItem {
             List.of(
                     TextUtil.text("Break the barrier!"),
                     TextUtil.text("• Can break normally unbreakable blocks", NamedTextColor.DARK_RED)
-            )
+            ),
+            5 * 60
     );
 
     public final String id;
@@ -132,6 +137,7 @@ public enum CustomItem {
     public final NamedTextColor color;
     public final List<Component> baseLore;
 
+    public final Integer cooldown;
     public final Integer attackDamage;
     public final Double attackSpeed;
 
@@ -141,6 +147,7 @@ public enum CustomItem {
                String name,
                NamedTextColor color,
                List<Component> baseLore,
+               Integer cooldown,
                Integer attackDamage,
                Double attackSpeed) {
 
@@ -149,6 +156,7 @@ public enum CustomItem {
         this.name = name;
         this.color = color;
         this.baseLore = baseLore == null ? List.of() : baseLore;
+        this.cooldown = cooldown;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
     }
@@ -158,9 +166,20 @@ public enum CustomItem {
                Material material,
                String name,
                NamedTextColor color,
+               List<Component> baseLore,
+               Integer cooldown) {
+
+        this(id, material, name, color, baseLore, cooldown, null, null);
+    }
+
+    // without cooldown
+    CustomItem(String id,
+               Material material,
+               String name,
+               NamedTextColor color,
                List<Component> baseLore) {
 
-        this(id, material, name, color, baseLore, null, null);
+        this(id, material, name, color, baseLore, null, null, null);
     }
 
     // minimal
@@ -169,6 +188,6 @@ public enum CustomItem {
                String name,
                NamedTextColor color) {
 
-        this(id, material, name, color, List.of(), null, null);
+        this(id, material, name, color, List.of(), null, null, null);
     }
 }

@@ -18,10 +18,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class CleaverListener implements Listener {
     private final AmethystApath plugin;
 
-    public CleaverListener(AmethystApath plugin) {
-        this.plugin = plugin;
-    }
-
     private ItemStack getHeadForEntity(LivingEntity victim) {
         if (victim instanceof Player player) {
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
@@ -40,6 +36,10 @@ public class CleaverListener implements Listener {
             case ENDER_DRAGON -> new ItemStack(Material.DRAGON_HEAD);
             default -> null;
         };
+    }
+
+    public CleaverListener(AmethystApath plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler

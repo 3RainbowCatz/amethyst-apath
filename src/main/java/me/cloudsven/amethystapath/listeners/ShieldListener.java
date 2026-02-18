@@ -3,6 +3,7 @@ package me.cloudsven.amethystapath.listeners;
 import me.cloudsven.amethystapath.AmethystApath;
 import me.cloudsven.amethystapath.items.CustomItem;
 import me.cloudsven.amethystapath.items.ItemRegistry;
+import me.cloudsven.amethystapath.util.CooldownUtil;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -18,12 +19,7 @@ import java.util.UUID;
 
 public class ShieldListener implements Listener {
     private final AmethystApath plugin;
-    public ShieldListener(AmethystApath plugin) {
-        this.plugin = plugin;
-    }
-
-    private final Map<UUID, Long> cooldowns = new HashMap<>();
-    private static final long COOLDOWN = 10000;
+    private static final CustomItem item = CustomItem.AMIRITE_SHIELD;
 
     private void reflectDamage(LivingEntity attacker, double originalDamage) {
         double reflected = originalDamage * 0.10;
@@ -38,12 +34,16 @@ public class ShieldListener implements Listener {
         );
     }
 
+    public ShieldListener(AmethystApath plugin) {
+        this.plugin = plugin;
+    }
+
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
 
         ItemStack shield = player.getInventory().getItemInOffHand();
-        if (!ItemRegistry.is(shield, CustomItem.AMIRITE_SHIELD)) return;
+        if (!ItemRegistry.is(shield, item)) return;
 
         if (!player.isBlocking()) return;
 
@@ -74,13 +74,15 @@ public class ShieldListener implements Listener {
         if (!player.isSneaking() || !player.isBlocking()) return;
 
         ItemStack shield = player.getInventory().getItemInOffHand();
-        if (!ItemRegistry.is(shield, CustomItem.AMIRITE_SHIELD)) return;
+        if (!ItemRegistry.is(shield, item)) return;
 
-        long now = System.currentTimeMillis();
-        if (cooldowns.containsKey(player.getUniqueId())
-                && now - cooldowns.get(player.getUniqueId()) < COOLDOWN) return;
+        String abilityKey = "amirite_shield_knock";
 
-        cooldowns.put(player.getUniqueId(), now);
+        if (CooldownUtil.isOnCooldown(player.getUniqueId(), abilityKey)) {
+            long secondsLeft = CooldownUtil.getRemainingTime(player.getUniqueId(), abilityKey);
+            player.sendMessage(ChatColor.RED + "Wait " + secondsLeft + "s before using this again!");
+            return;
+        }
 
         player.getWorld().spawnParticle(Particle.ENCHANT,
                 player.getLocation(), 60, 1, 1, 1);
@@ -95,5 +97,9 @@ public class ShieldListener implements Listener {
                 target.setVelocity(knock);
             }
         }
+
+        player.sendMessage(ChatColor.GOLD + "You feel a burst of power from the Amirite Shield!");
+
+        CooldownUtil.setCooldown(player.getUniqueId(), abilityKey, item.cooldown);
     }
 }

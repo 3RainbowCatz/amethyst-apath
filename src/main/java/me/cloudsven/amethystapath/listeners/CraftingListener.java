@@ -15,10 +15,6 @@ import org.bukkit.inventory.meta.Damageable;
 public class CraftingListener implements Listener {
     private final AmethystApath plugin;
 
-    public CraftingListener(AmethystApath plugin) {
-        this.plugin = plugin;
-    }
-
     private ItemStack getBaseItem(PrepareItemCraftEvent event, String key, Material material) {
         ItemStack[] matrix = event.getInventory().getMatrix();
 
@@ -66,6 +62,10 @@ public class CraftingListener implements Listener {
         ItemStack result = ItemFactory.create(item);
 
         event.getInventory().setResult(copyItemProperties(result, originalItem));
+    }
+
+    public CraftingListener(AmethystApath plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler

@@ -45,6 +45,7 @@ public class ScarletBladeListener implements Listener {
         ));
 
         DamageUtil.damageArmor(target, 0.03);
+        DamageUtil.damageArmor(player, 0.05);
 
         if (isCritical(player)) {
             target.setFireTicks(160); // 8 seconds
