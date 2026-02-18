@@ -5,7 +5,7 @@ It runs on any Spigot/Paper 1.21.10+ server. (to my knowledge, I haven't tested 
 
 # Installation
 
-Put the `jar` file inside of the `plugins` folder and put the datapack `amethystapathdatapack.jar` inside of your `world/datapacks` folder.
+Put the `jar` file inside of the `plugins` folder and put the datapack `amethystapathdatapack.zip` inside of your `world/datapacks` folder.
 
 # Issues
 
