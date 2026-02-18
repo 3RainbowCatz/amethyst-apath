@@ -1,5 +1,6 @@
 ### ![amirite shard](/assets/amirite_shard.png "amirite shard") Amirite Shard
 The main ingredient used to craft Amirite tools & weapons.
+The recipe gives 4 shards.
 
 Crafting recipe:
 - 1 Netherite Ingot
