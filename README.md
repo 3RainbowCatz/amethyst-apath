@@ -3,6 +3,12 @@
 Amethyst Apath is a Minecraft server plugin that expands upon amethyst with end-game armor, tools & weapons.<br/>
 It runs on any Spigot/Paper 1.21.10+ server. (to my knowledge, I haven't tested things yet.)
 
+Wikis:
+</br>[Items](ITEMS.md)
+</br>[Structures](STRUCTURES.md)
+</br>[Enchantments](ENCHANTMENTS.md)
+</br>[Enemies](ENEMIES.md)
+
 # Installation
 
 Put the `jar` file inside of the `plugins` folder and put the datapack `amethystapathdatapack.zip` inside of your `world/datapacks` folder.
